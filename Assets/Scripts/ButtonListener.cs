@@ -7,20 +7,28 @@ using UnityEngine.Events;
 public class ButtonListener : MonoBehaviour
 {
 
-    public UnityEvent proximityevent;
-    public UnityEvent contactevent;
-    public UnityEvent actionevent;
-    public UnityEvent defaultevent;
+    //public UnityEvent proximityevent;
+    //public UnityEvent contactevent;
+    //public UnityEvent actionevent;
+    //public UnityEvent defaultevent;
 
     public OVRHand lefthand;
+    public GameObject leftanchor;
     public OVRHand righthand;
+    public GameObject rightanchor;
 
     public Material cur;
     public Material[] materials;
 
+    public StateHolder state;
 
     bool eventtrigger;
     bool boxtrigger;
+
+    Transform handpos;
+    Transform mypos;
+    int hand = 0;
+    bool movetrigger; 
 
     public int count = 0;
 
@@ -30,6 +38,12 @@ public class ButtonListener : MonoBehaviour
         GetComponent<ButtonController>().InteractableStateChanged.AddListener(InitialEvent);
         cur = materials[0];
         eventtrigger = true;
+        lefthand = GameObject.FindGameObjectWithTag("Left Hand").GetComponent<OVRHand>();
+        righthand = GameObject.FindGameObjectWithTag("Right Hand").GetComponent<OVRHand>();
+        leftanchor = GameObject.FindGameObjectWithTag("Left Anchor");
+        rightanchor = GameObject.FindGameObjectWithTag("Right Anchor");
+        state = GameObject.FindGameObjectWithTag("State").GetComponent<StateHolder>();
+        movetrigger = false;
     }
 
     void InitialEvent(InteractableStateArgs state)
@@ -38,7 +52,7 @@ public class ButtonListener : MonoBehaviour
         if (state.NewInteractableState == InteractableState.ProximityState)
         {
             //GetComponent<MeshRenderer>().material = cur;
-            boxtrigger = true;
+            //boxtrigger = true;
         } else if (state.NewInteractableState == InteractableState.ContactState)
         {
             //GetComponent<MeshRenderer>().material = cur;
@@ -54,12 +68,12 @@ public class ButtonListener : MonoBehaviour
 
         } else if (state.NewInteractableState == InteractableState.ActionState)
         {
-            actionevent.Invoke();
+            //actionevent.Invoke();
         } else
         {
-            defaultevent.Invoke();
+            //defaultevent.Invoke();
             boxtrigger = false;
-            cur = materials[0];
+            //cur = materials[0];
         }
     }
 
@@ -76,35 +90,104 @@ public class ButtonListener : MonoBehaviour
         bool isRRingFingerPinching = righthand.GetFingerIsPinching(OVRHand.HandFinger.Ring);
         bool isRPinkyFingerPinching = righthand.GetFingerIsPinching(OVRHand.HandFinger.Pinky);
 
-        if ( (isIndexFingerPinching || isRIndexFingerPinching) && eventtrigger)
-        {
-            cur = materials[1];
-            eventtrigger = false;
-        }
-        else if ( (isMiddleFingerPinching || isRMiddleFingerPinching) && eventtrigger)
-        {
-            cur = materials[2];
-            eventtrigger = false;
-        }
-        else if ( (isRingFingerPinching || isRRingFingerPinching) && eventtrigger)
-        {
-            cur = materials[3];
-            eventtrigger = false;
-        }
-        else if ( (isPinkyFingerPinching || isRPinkyFingerPinching) && eventtrigger)
-        {
-            cur = materials[4];
-            eventtrigger = false;
-        }
-        if (!eventtrigger && !isIndexFingerPinching && !isMiddleFingerPinching && !isRingFingerPinching && !isPinkyFingerPinching &&
-            !isRIndexFingerPinching && !isRMiddleFingerPinching && !isRRingFingerPinching && !isRPinkyFingerPinching)
-        {
-            eventtrigger = true;
-        }
-
         if (boxtrigger)
         {
-            GetComponent<MeshRenderer>().material = cur;
+            if (state.state == 0)
+            {
+
+                if ((isIndexFingerPinching || isRIndexFingerPinching) && eventtrigger)
+                {
+                    cur = materials[1];
+                    eventtrigger = false;
+                }
+                else if ((isMiddleFingerPinching || isRMiddleFingerPinching) && eventtrigger)
+                {
+                    cur = materials[2];
+                    eventtrigger = false;
+                }
+                else if ((isRingFingerPinching || isRRingFingerPinching) && eventtrigger)
+                {
+                    cur = materials[3];
+                    eventtrigger = false;
+                }
+                else if ((isPinkyFingerPinching || isRPinkyFingerPinching) && eventtrigger)
+                {
+                    cur = materials[4];
+                    eventtrigger = false;
+                }
+                if (!eventtrigger && !isIndexFingerPinching && !isMiddleFingerPinching && !isRingFingerPinching && !isPinkyFingerPinching &&
+                    !isRIndexFingerPinching && !isRMiddleFingerPinching && !isRRingFingerPinching && !isRPinkyFingerPinching)
+                {
+                    eventtrigger = true;
+                }
+
+                GetComponent<MeshRenderer>().material = cur;
+            }
+
+            else if (state.state == 1)
+            {
+
+
+                if (isIndexFingerPinching && hand == 0 && eventtrigger)
+                {
+                    handpos = leftanchor.GetComponent<Transform>();
+                    mypos = this.gameObject.GetComponent<Transform>();
+                    hand = 1;
+                    movetrigger = false;
+                }
+                if (isRIndexFingerPinching && hand == 0 && eventtrigger)
+                {
+                    handpos = rightanchor.GetComponent<Transform>();
+                    mypos = this.gameObject.GetComponent<Transform>();
+                    hand = 2;
+                    movetrigger = false;
+                }
+
+                if (!eventtrigger)
+                {
+                    Transform curHand = leftanchor.GetComponent<Transform>();
+                    if (hand == 2)
+                    {
+                        curHand = rightanchor.GetComponent<Transform>();
+                    }
+                    Transform curObj = this.gameObject.GetComponent<Transform>();
+
+
+                    curObj.Rotate(curHand.eulerAngles);
+
+                    handpos = curHand;
+                }
+
+                if (!eventtrigger && hand == 1 && !isIndexFingerPinching)
+                {
+                    hand = 0;
+                    eventtrigger = true;
+                }
+                else if (!eventtrigger && hand == 2 && !isRIndexFingerPinching)
+                {
+                    hand = 0;
+                    eventtrigger = true;
+                }
+            }
+            else if (state.state == 2)
+            {
+                /*if (isIndexFingerPinching || isRIndexFingerPinching)
+                {
+                    Instantiate(this.gameObject, GetComponent<Transform>());
+                }*/
+            }
+            else if (state.state == 3)
+            {
+                if (isIndexFingerPinching || isRIndexFingerPinching)
+                {
+                    this.gameObject.SetActive(false);
+                }
+            }
         }
+        else
+        {
+            eventtrigger = true;
+            hand = 0;
+        } 
     }
 }

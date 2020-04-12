@@ -246,7 +246,7 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>C:/Users/Yi Li/Oculus Quest test/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
+      <HintPath>C:/Users/Yi Li/Documents/GitHub/VR-Multi-Gesture/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2019.3.8f1\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api\mscorlib.dll</HintPath>
@@ -865,6 +865,9 @@
     <None Include="Packages\com.unity.xr.legacyinputhelpers\Runtime\TrackedPoseDriver\UnityEngine.SpatialTracking.asmdef" />
     <None Include="Packages\com.unity.xr.legacyinputhelpers\Tests\Editor\LegacyInputHelpersEditorTests.asmdef" />
     <None Include="Packages\com.unity.xr.legacyinputhelpers\Tests\Runtime\TrackedPoseDriver\UnityEngine.SpatialTracking.Tests.asmdef" />
+    <None Include="Packages\com.unity.xr.oculus.android\Editor\Unity.XR.Oculus.Editor.asmdef" />
+    <None Include="Packages\com.unity.xr.oculus.android\Tests\Editor\Unity.XR.Oculus.Android.EditorTests.asmdef" />
+    <None Include="Packages\com.unity.xr.oculus.standalone\Tests\Editor\Unity.XR.Oculus.Standalone.EditorTests.asmdef" />
     <None Include="Packages\com.unity.xr.openvr.standalone\Tests\Editor\Unity.XR.OpenVR.Standalone.EditorTests.asmdef" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
