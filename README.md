@@ -7,4 +7,4 @@ The environment we have developed on will be utilizing the Oculus Quests obtaine
 <br><br>
 Read our final graduate paper with our results and demo videos [here](https://drive.google.com/open?id=1EImCe87ylGvnQG0GV9gK8ztIEcpaiG_afJ5rLFtT570)
 <br><br>
-See the project description [here](https://johnnyhoboy.github.io/portfolio-vr-multi-gestures.html)
+See the project description [here](https://johnnyhoboy.github.io/portfolio-vr-multi-gestures.html) on my website
