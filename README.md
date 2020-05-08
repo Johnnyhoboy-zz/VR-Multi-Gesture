@@ -1,3 +1,10 @@
 # VR-Multi-Gesture
-Graduate project for 3DUI
-Test
+This page describes my summary for all of our project milestones with my partner Yi Li for the 3DUI graduate class at Georgia Tech. It focuses on multi-gesture hand recognition, specifically in the virtual reality space. We explore the potential use cases with regards to 3D user interfaces, and we offer a proposal for developing new graphical interaction techniques based on gesture recognition. We utilize the Oculus Quests with the hand-tracking SDK, and we achieved a perfect 100 score for the graduate project!
+<br><br>
+As mentioned prior, our project is to explore whether or not multi-gestures could be a potential shortcut for user interfaces. We want to experiment on an example such as a 3D paint program similar to Tilt Brush or APainter. In these programs, toggling an option on from a 2D menu floating in front of one controller can prove to be quite a tedious task, especially when you need to position your other controller to act as a mouse pointer. Then, to turn the option off or go into a different tool mode (create, erase, etc.) you usually have to redo the process again. If multi-hand gestures were a shortcut similar to keyboard shortcuts, such as CTRL-C and CTRL-V, we can foresee them being handy shortcuts for such 3D paint programs.
+<br><br>
+The environment we have developed on will be utilizing the Oculus Quests obtained from class. Due to the nature of the Oculus Hand Tracking SDK, we have setup a Unity 2019 3.8f1 project written in C# that is built on the Android module since the Oculus Quest environment is a mobile platform. We have taken example scenes to recreate a hand tracking scene without the need of controllers. At the time of this writing, Oculus Quest does not support development of both controllers and hands at the same time. This will result in Unity crashes if done so.
+<br><br>
+Read our final graduate paper with our results and demo videos [here](https://drive.google.com/open?id=1EImCe87ylGvnQG0GV9gK8ztIEcpaiG_afJ5rLFtT570)
+<br><br>
+See the project description [here](https://johnnyhoboy.github.io/portfolio-vr-multi-gestures.html)
